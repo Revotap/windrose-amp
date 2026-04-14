@@ -1,0 +1,97 @@
+[
+  {
+    "Meta": {
+      "DisplayName": "Server Name",
+      "Description": "Anzeigename des Servers (sichtbar im Invite-Code-Fenster)",
+      "Keywords": "name server title",
+      "InputType": "text",
+      "ParamFieldName": "ServerName",
+      "StartupParameter": false,
+      "IsFlagArgument": false,
+      "IncludeInCommandLineIfDefault": false,
+      "DefaultValue": "My Windrose Server",
+      "EnumValues": null,
+      "ValueRange": null,
+      "SelectionSource": null
+    },
+    "ParamFieldName": "ServerName",
+    "Node": "GenericModule.Meta.AppSettings",
+    "Placeholder": "My Windrose Server",
+    "MaxLength": 64
+  },
+  {
+    "Meta": {
+      "DisplayName": "Passwortschutz aktiv",
+      "Description": "Wenn aktiviert, müssen Spieler beim Verbinden ein Passwort eingeben",
+      "Keywords": "password passwort protected",
+      "InputType": "checkbox",
+      "ParamFieldName": "PasswordProtected",
+      "StartupParameter": false,
+      "IsFlagArgument": false,
+      "IncludeInCommandLineIfDefault": false,
+      "DefaultValue": "false",
+      "EnumValues": null,
+      "ValueRange": null,
+      "SelectionSource": null
+    },
+    "ParamFieldName": "PasswordProtected",
+    "Node": "GenericModule.Meta.AppSettings"
+  },
+  {
+    "Meta": {
+      "DisplayName": "Server-Passwort",
+      "Description": "Passwort für den Beitritt (nur aktiv wenn 'Passwortschutz aktiv' gesetzt)",
+      "Keywords": "password passwort",
+      "InputType": "password",
+      "ParamFieldName": "Password",
+      "StartupParameter": false,
+      "IsFlagArgument": false,
+      "IncludeInCommandLineIfDefault": false,
+      "DefaultValue": "",
+      "EnumValues": null,
+      "ValueRange": null,
+      "SelectionSource": null
+    },
+    "ParamFieldName": "Password",
+    "Node": "GenericModule.Meta.AppSettings",
+    "Placeholder": ""
+  },
+  {
+    "Meta": {
+      "DisplayName": "Max. Spieler",
+      "Description": "Maximale gleichzeitige Spieleranzahl (1–8). Empfohlen: 4 für 12 GB RAM, 8 für 16 GB RAM",
+      "Keywords": "players maxplayers slots anzahl",
+      "InputType": "number",
+      "ParamFieldName": "MaxPlayerCount",
+      "StartupParameter": false,
+      "IsFlagArgument": false,
+      "IncludeInCommandLineIfDefault": false,
+      "DefaultValue": "4",
+      "EnumValues": null,
+      "ValueRange": { "Min": 1, "Max": 8 },
+      "SelectionSource": null
+    },
+    "ParamFieldName": "MaxPlayerCount",
+    "Node": "GenericModule.Meta.AppSettings",
+    "Placeholder": "4"
+  },
+  {
+    "Meta": {
+      "DisplayName": "Zusätzliche Startparameter",
+      "Description": "Optionale UE5-Startparameter, z. B. -useallavailablecores -nomemoryprofilerthrottling",
+      "Keywords": "args arguments params extra custom",
+      "InputType": "text",
+      "ParamFieldName": "CustomArgs",
+      "StartupParameter": true,
+      "IsFlagArgument": false,
+      "IncludeInCommandLineIfDefault": false,
+      "DefaultValue": "",
+      "EnumValues": null,
+      "ValueRange": null,
+      "SelectionSource": null
+    },
+    "ParamFieldName": "CustomArgs",
+    "Node": "GenericModule.Meta.AppSettings",
+    "Placeholder": "-useallavailablecores"
+  }
+]

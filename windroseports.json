@@ -1,0 +1,16 @@
+[
+  {
+    "DisplayName": "Game Port (UDP)",
+    "Protocol": "UDP",
+    "PortNumber": 27015,
+    "Required": true,
+    "Description": "Haupt-Spielport – muss in der Firewall freigegeben sein"
+  },
+  {
+    "DisplayName": "Query Port (UDP)",
+    "Protocol": "UDP",
+    "PortNumber": 27016,
+    "Required": false,
+    "Description": "Steam Query Port für Serverlisten-Abfragen"
+  }
+]

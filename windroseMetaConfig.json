@@ -1,0 +1,18 @@
+[
+  {
+    "ConfigFile": "Windrose/Saved/Config/WindowsServer/ServerDescription.json",
+    "AutoMap": true,
+    "Importable": true,
+    "Subsections": [
+      {
+        "Heading": "$root",
+        "SettingMappings": {
+          "ServerName":       "ServerName",
+          "PasswordProtected":"PasswordProtected",
+          "Password":         "Password",
+          "MaxPlayerCount":   "MaxPlayerCount"
+        }
+      }
+    ]
+  }
+]
