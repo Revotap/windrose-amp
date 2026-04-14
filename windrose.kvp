@@ -1,92 +1,84 @@
-# ============================================================
-#  Windrose – CubeCoders AMP Generic Module Template
-#  Steam App ID : 3041230
-#  Engine       : Unreal Engine 5
-#  OS support   : Windows (native) + Linux (via Wine)
-# ============================================================
-
-# ── Meta ────────────────────────────────────────────────────
-Meta.Author=Community
+Meta.DisplayName=Windrose
+Meta.Description=Windrose Dedicated Server
+Meta.Arch=x86_64
+Meta.Author=Revotap - Made with AMP Config Generator
 Meta.URL=https://store.steampowered.com/app/3041230/Windrose/
-Meta.DisplayImageSource=steam:3041230
-Meta.ConfigManifest=windroseconfig.json
-Meta.ConfigRoot=windrose.kvp
-Meta.MinAMPVersion=2.4.0.0
-Meta.ConfigVersion=1
-Meta.AppConfigId=windrose-dedicated-server-v1
-Meta.AppIsMultiIPAware=True
-
-# ── Application ─────────────────────────────────────────────
-
+Meta.MinAMPVersion=2.4.6.6
+Meta.SpecificDockerImage=cubecoders/ampbase:wine
+Meta.DockerRequired=False
+Meta.ContainerPolicy=Supported
+Meta.ContainerPolicyReason=
+Meta.Prerequsites=[]
+Meta.EndpointURIFormat=steam://connect/{ip}:{GenericModule.App.Ports.$SteamQueryPort}
+Meta.AppConfigId=a0265adb-0ce8-4501-a144-76aee8ec9cc5
+App.AdminMethod=STDIO
+App.HasReadableConsole=true
+App.HasWritableConsole=true
 App.DisplayName=Windrose
-
-# Root directory for the AMP instance
-App.RootDir=./Windrose/
-
-# SteamCMD installs the server into a subdirectory named after the App ID.
-# Adjust the executable path below if the actual binary is in a different location
-# after the first install – verify via the AMP File Manager.
-App.BaseDirectory=./Windrose/3041230/
-
-# ── Executables ─────────────────────────────────────────────
-# Windows: launch the server binary directly
-App.ExecutableWin=3041230\Windrose\Binaries\Win64\WindroseServer-Win64-Shipping.exe
-
-# Linux: Wine acts as the launcher; the Windows .exe path is injected via {{$PlatformArgs}}
+App.CommandLineArgs={{$PlatformArgs}} {{$FormattedArgs}}
+App.WindowsCommandLineArgs=-log  -PORT=7777 -QUERYPORT=7778
+App.CommandLineParameterFormat=-{0} "{1}"
+App.CommandLineParameterDelimiter= 
+App.RapidStartup=false
+App.ApplicationReadyMode=Immediate
+App.ExitMethod=OS_CLOSE
+App.ExitString=stop
+App.ExitTimeout=30
+App.ExitFile=app_exit.lck
+App.SupportsLiveSettingsChanges=False
+App.LiveSettingChangeCommandFormat=set {0} "{1}"
+App.ApplicationIPBinding=0.0.0.0
+App.AdminPortRef=RemoteAdminPort
+App.UniversalSleepApplicationUDPPortRef=GamePort1
+App.PrimaryApplicationPortRef=GamePort1
+App.UniversalSleepSteamQueryPortRef=SteamQueryPort
+App.MaxUsers=8
+App.UseRandomAdminPassword=True
+App.RemoteAdminPassword=
+App.AdminLoginTransform=None
+App.RCONConnectDelaySeconds=30
+App.RCONConnectRetrySeconds=15
+App.RCONHeartbeatCommand=ping
+App.RCONHeartbeatMinutes=0
+App.TelnetLoginFormat={0}
+App.SteamUpdateAnonymousLogin=True
+App.SteamForceLoginPrompt=False
+App.SupportsUniversalSleep=False
+App.WakeupMode=Any
+App.TemplateMatchRegex={{(\$?[\w]+)}}
+App.MonitorChildProcess=False
+App.MonitorChildProcessWaitMs=1000
+App.MonitorChildProcessName=
+App.Compatibility=None
+App.SteamWorkshopDownloadLocation={{$FullBaseDir}}undefined
+Console.FilterMatchRegex=
+Console.FilterMatchReplacement=
+Console.ThrowawayMessageRegex=(WARNING|ERROR): Shader.+
+Console.UpdateAvailableRegex=^\[\d\d:\d\d:\d\d\] \[INFO\] A new server update is available! v[\d\.]+.$
+Console.SuppressLogAtStart=False
+Console.ActivateLogRegex=
+Console.UserActions={}
+Console.SleepMode=False
+Console.SleepOnStart=False
+Console.SleepDelayMinutes=5
+Console.DozeDelay=2
+Console.AutoRetryCount=5
+Console.SleepStartThresholdSeconds=25
+Console.AppReadyRegex=^$
+Console.UserJoinRegex=^$
+Console.UserLeaveRegex=^$
+Console.UserChatRegex=^$
+Meta.OS=3
+Meta.ConfigManifest=windroseconfig.json
+Meta.MetaConfigManifest=windrosemetaconfig.json
+Meta.ConfigRoot=windrose.kvp
+App.RootDir=./windrose/
+Meta.DisplayImageSource=steam:4129620
+App.BaseDirectory=./windrose/4129620/
+App.WorkingDir=4129620
+App.ExecutableWin=4129620\WindroseServer.exe
 App.ExecutableLinux=/usr/bin/wine
-
-# Working directory (relative to BaseDirectory)
-App.WorkingDir=3041230
-
-# ── Command-line arguments ───────────────────────────────────
-# {{$PlatformArgs}} expands to:
-#   Linux  → full path of the Windows .exe passed to wine
-#   Windows→ empty (the exe is already set via ExecutableWin)
-#
-# -log              : write UE log to disk (required for console capture)
-# -stdout           : mirror log to stdout (required for AMP console)
-# -FullStdOutLogOutput : include all log categories (recommended)
-# -MultiHome        : bind to the instance IP
-# -Port / -QueryPort: network ports managed by AMP
-# {{$FormattedArgs}}: any extra args the user adds in AMP settings
-App.CommandLineArgs={{$PlatformArgs}} Windrose -log -stdout -FullStdOutLogOutput -MultiHome={{$ApplicationIPBinding}} -Port={{$ApplicationPort1}} -QueryPort={{$ApplicationPort2}} {{$FormattedArgs}}
-
-# ── Environment variables (critical for Wine on Linux) ──────
-# WINEPREFIX  : isolated Wine environment per AMP instance
-# WINEARCH    : must be win64 for UE5 servers
-# WINEDEBUG   : suppress noisy Wine debug output
-# XDG_RUNTIME_DIR: required by Wine on headless Linux
-# SteamAppId  : tells the server its own Steam identity
-App.EnvironmentVariables={"SteamAppId":"3041230","WINEPREFIX":"{{$FullRootDir}}.wine","WINEARCH":"win64","WINEDEBUG":"-all","XDG_RUNTIME_DIR":"/tmp"}
-
-# ── SteamCMD / Update ────────────────────────────────────────
-App.SteamAppID=3041230
-App.SteamCMDArgs=+login anonymous
-
-# Preserve config/save files when AMP smart-excludes during update
-App.SmartExcludeExemptions=["*.cfg","*.conf","*.config","*.ini","*.json","*.xml","*.properties","*.kvp","*.yml","*.yaml","*.toml"]
-
-# ── Ports ────────────────────────────────────────────────────
-# AMP assigns the actual port numbers; these are the defaults.
-# Forward both UDP ports in your firewall/router.
-Ports.$ApplicationPort1=27015/udp
-Ports.$ApplicationPort2=27016/udp
-
-# ── Process monitoring (Linux/Wine only) ─────────────────────
-# AMP uses this regex to locate the actual server child-process under Wine
-# so it can read CPU/RAM usage and detect crashes correctly.
-App.MonitorChildProcessName=^{{$WineBaseDir}}Windrose\\Binaries\\Win64\\WindroseServer-Win64-Shipping\.exe.*$
-
-# ── Console / Log parsing ─────────────────────────────────────
-# UE5 log lines follow the pattern:
-#   [YYYY.MM.DD-HH.MM.SS:mmm][  0]Category: Message
-
-# Server is "ready" when UE finishes bringing up the world
-Console.AppReadyRegex=^\[[\d\.]+-[\d\.:]+\]\[[\d ]+\]LogWorld: Bringing up level for play took: \d+\.\d+$
-
-# Detect clean shutdown
-Console.StopRegex=^\[[\d\.]+-[\d\.:]+\]\[[\d ]+\]LogExit: Exiting\.
-
-# Player join/leave – adjust regexes once the actual log output is known
-Console.UserJoinRegex=^\[[\d\.]+-[\d\.:]+\]\[[\d ]+\]LogNet: Join succeeded: (?<username>.+)$
-Console.UserLeaveRegex=^\[[\d\.]+-[\d\.:]+\]\[[\d ]+\]LogNet: UChannel::CleanUp:.*RemoteAddr: (?<userid>\S+)
+App.LinuxCommandLineArgs="./WindroseServer.exe" -log  -PORT=7777 -QUERYPORT=7778
+App.Ports=@IncludeJson[windroseports.json]
+App.UpdateSources=@IncludeJson[windroseupdates.json]
+App.EnvironmentVariables={"LD_LIBRARY_PATH": "{{$FullBaseDir}}linux64:{{$FullRootDir}}linux64:%LD_LIBRARY_PATH%", "SteamAppId": "4129620", "WINEPREFIX": "{{$FullRootDir}}.wine", "WINEARCH": "win64", "WINEDEBUG": "-all"}
