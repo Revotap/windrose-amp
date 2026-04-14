@@ -4,13 +4,13 @@ Meta.Arch=x86_64
 Meta.Author=Revotap - Made with AMP Config Generator
 Meta.URL=https://store.steampowered.com/app/3041230/Windrose/
 Meta.MinAMPVersion=2.4.6.6
-Meta.SpecificDockerImage=cubecoders/ampbase:wine
+Meta.SpecificDockerImage=cubecoders/ampbase:xvfb
 Meta.DockerRequired=False
 Meta.ContainerPolicy=Supported
 Meta.ContainerPolicyReason=
 Meta.Prerequsites=[]
 Meta.EndpointURIFormat=steam://connect/{ip}:{GenericModule.App.Ports.$SteamQueryPort}
-Meta.AppConfigId=a0265adb-0ce8-4501-a144-76aee8ec9cc5
+Meta.AppConfigId=78e4206a-b846-4919-8f86-bcaecf060501
 App.AdminMethod=STDIO
 App.HasReadableConsole=true
 App.HasWritableConsole=true
@@ -77,8 +77,8 @@ Meta.DisplayImageSource=steam:4129620
 App.BaseDirectory=./windrose/4129620/
 App.WorkingDir=4129620
 App.ExecutableWin=4129620\WindroseServer.exe
-App.ExecutableLinux=/usr/bin/wine
-App.LinuxCommandLineArgs="./WindroseServer.exe" -log  -PORT=7777 -QUERYPORT=7778
+App.ExecutableLinux=/usr/bin/xvfb-run
+App.LinuxCommandLineArgs=-a wine "./WindroseServer.exe" -log  -PORT=7777 -QUERYPORT=7778
 App.Ports=@IncludeJson[windroseports.json]
 App.UpdateSources=@IncludeJson[windroseupdates.json]
 App.EnvironmentVariables={"LD_LIBRARY_PATH": "{{$FullBaseDir}}linux64:{{$FullRootDir}}linux64:%LD_LIBRARY_PATH%", "SteamAppId": "4129620", "WINEPREFIX": "{{$FullRootDir}}.wine", "WINEARCH": "win64", "WINEDEBUG": "-all"}
